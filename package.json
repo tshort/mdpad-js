@@ -1,0 +1,13 @@
+{
+  "name": "mdpad-js",
+  "version": "0.1.0",
+  "description": "One-file web apps in Markdown",
+  "main": "dist/mdpad-0.1.0.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tom Short <tshort.rlists@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://xx",
+  "repository": "github:tshort/mdpad-js",
+}

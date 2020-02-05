@@ -1,3 +1,5 @@
+# mdpad
+
 ### One-file web apps
 
 *mdpad* is a JavaScript package that makes it easier to write one-file, 

@@ -27,17 +27,6 @@ function mselect({
              m("select.form-control", {mdpad:mdpad}, options));
 }
 
-function mcard(title, content, doshow) {
-  var idref = "ref" + Math.random().toString().substring(2,15);
-  return m(".card",
-            m(".card-header",
-              m(".mb-0",
-                m("button.btn.btn-link", {"data-toggle":"collapse", "data-target":"#" + idref}, title, ))),
-            m(".collapse" + (doshow ? ".show" : "") + "#" + idref,
-              m(".card-body", content, )));
-}
-
-
 function mtable(tbl, {
       tableclass = "table-striped", 
       theadclass = "", 

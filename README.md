@@ -20,7 +20,9 @@ Key features include:
   automatic undo and redo using the forward and back buttons. 
   Saving page state is as simple as bookmarking.
 
-**[documentation and examples](examples)**
+**[documentation and examples](https://mdpad.netlify.com)**
+
+**[source for examples](https://github.com/tshort/mdpad-docs/tree/master/content/examples)**
 
 This mode of operation drastically simplifies the interface for 
 the page author. It does not depend on a particular JavaScript 

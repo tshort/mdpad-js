@@ -47,3 +47,20 @@ function mtable(tbl, {
              m("tbody",
                rows))
 }
+
+function mplotly(data, layout, config) {
+    return m({
+        oncreate: function(vnode) {
+            Plotly.newPlot(vnode.dom, data, layout, config);
+        },
+        onremove: function(vnode) {
+            Plotly.purge(vnode.dom);
+        },
+        onupdate: function(vnode) {  // it's not using this
+            Plotly.react(vnode.dom, data, layout, config);
+        },
+        view: function() {
+            return m('div')
+        }
+    })
+}

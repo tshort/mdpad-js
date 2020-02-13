@@ -120,16 +120,16 @@ function update_element(el) {
         var params = new URLSearchParams(url.search); 
         params.set(name, element_value(el));
         if (replace_url) {
-            window.history.replaceState({}, "", location.pathname + "?" + params);
+            window.history.replaceState({}, '', `${location.pathname}?${params}`);
         } else {
-            window.history.pushState({}, "", location.pathname + "?" + params);
+            window.history.pushState({}, '', `${location.pathname}?${params}`);
         }
     }
 }
 
 function set_element_value(el, value) {
     if (el.type == "checkbox") {
-        el.checked = value == "true";
+        el.checked = value;
     } else if (el.type == "radio") {
         document.querySelectorAll("[mdpad=" + el.getAttribute("mdpad") + "]").forEach((el) => {
             el.checked = el.value == value;
@@ -158,9 +158,10 @@ function element_value(x) {
 
 function read_form(x, i, a) {
     // Send commands to javascript to turn form elements into javascript global variables.
-    name = x.getAttribute("mdpad");
-    if (name) 
-        mdpad[name] = element_value(x);
+    var name = x.getAttribute("mdpad");
+    var val = element_value(x);
+    if (name && typeof val !== 'undefined') 
+        mdpad[name] = val; 
 }
 
 function calculate_forms() {  // update data from each form element

@@ -27,7 +27,19 @@ function mselect({
              m("select.form-control", {mdpad:mdpad}, options));
 }
 
-function mtable(tbl, {
+function mcheckbox({
+      title = "", 
+      mdpad = "", 
+      checked = "checked",
+      groupclass = "",
+      labelclass = "",
+    }={}) {
+    return m(".form-check" + groupclass,
+             m("input.form-check-input", {mdpad:mdpad, type:"checkbox", checked:checked}),
+             m("label.form-check-label." + labelclass, title));
+}
+
+function mdatatable(tbl, {
       tableclass = "table-striped", 
       theadclass = "", 
     }={}) {
@@ -46,6 +58,54 @@ function mtable(tbl, {
                m("tr", keys.map((x) => m("th", x)))),
              m("tbody",
                rows))
+}
+
+function mcoltable(tbl, colheadings, rowheadings, {
+      tableclass = "table-striped", 
+      theadclass = "", 
+    }={}) {
+    var keys = Object.getOwnPropertyNames(tbl);
+    var rows = []
+    var hasrowheadings = rowheadings && rowheadings.length > 0; 
+    var hascolheadings = colheadings && colheadings.length > 0; 
+    for (i = 0; i < tbl[0].length; i++) {
+        var cells = []
+        hasrowheadings && 
+            cells.push(m("th", rowheadings[i]))
+        for (j = 0; j < tbl.length; j++) {
+            cells.push(m("td", tbl[j][i]))
+        }
+        rows.push(m("tr", cells))
+    }
+    return m("table.table." + tableclass,
+             m("thead." + theadclass,
+               hascolheadings && m("tr", hasrowheadings ? m("th") : "", colheadings.map((x) => m("th", x)))),
+             m("tbody",
+               rows))
+}
+
+function mrowtable(tbl, rowheadings, colheadings, {
+      tableclass = "table-striped", 
+      theadclass = "", 
+    }={}) {
+    var keys = Object.getOwnPropertyNames(tbl);
+    var rows = [];
+    var hasrowheadings = rowheadings && rowheadings.length > 0; 
+    var hascolheadings = colheadings && colheadings.length > 0; 
+    for (i = 0; i < tbl.length; i++) {
+        var cells = [];
+        hasrowheadings &&
+            cells.push(m("th", rowheadings[i]))
+        for (j = 0; j < tbl[0].length; j++) {
+            cells.push(m("td", tbl[i][j]));
+        }
+        rows.push(m("tr", cells));
+    }
+    return m("table.table." + tableclass,
+             m("thead." + theadclass,
+               hascolheadings && m("tr", hasrowheadings ? m("th") : "", colheadings.map((x) => m("th", x)))),
+             m("tbody",
+               rows));
 }
 
 function mplotly(data, layout, config) {

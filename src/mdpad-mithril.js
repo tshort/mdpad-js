@@ -3,14 +3,15 @@ function minput({
       mdpad = "", 
       type = "number", 
       step = 1, 
-      min = 0, 
+      min = "",
+      max = "", 
       value = 0, 
       groupclass = "",
       labelclass = "",
     }={}) {
     return m(".form-group." + groupclass,
              m("label.control-label." + labelclass, title),
-             m("input.form-control", {mdpad:mdpad, type:type, step:step, min:min, value:value}));
+             m("input.form-control", {mdpad:mdpad, type:type, step:step, min:min, max:max, value:value}));
 }
 
 function mselect({

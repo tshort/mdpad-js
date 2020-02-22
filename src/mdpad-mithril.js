@@ -3,7 +3,7 @@ function minput({
       mdpad = "", 
       type = "number", 
       step = 1, 
-      min = "",
+      min = 0,
       max = "", 
       value = 0, 
       groupclass = "",

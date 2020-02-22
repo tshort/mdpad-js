@@ -124,3 +124,16 @@ function mplotly(data, layout, config) {
         }
     })
 }
+
+function mvega(vegaspec) {
+    return m({
+        oncreate: function(vnode) {
+            vegaEmbed(vnode.dom, vegaspec);
+        },
+        view: function() {
+            return m('div')
+        }
+    })
+}
+
+    

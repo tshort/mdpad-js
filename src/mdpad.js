@@ -143,7 +143,18 @@ function element_value(x) {
     if (x.type == "text") {
         return x.value;
     } else if (x.type == "number") {
-        return Number(x.value);
+        var val = Number(x.value);
+        if (x.min && val < Number(x.min)) {
+            var minval = Number(x.min);
+            set_element_value(x, minval);
+            val = minval; 
+        }
+        if (x.max && val > Number(x.max)) {
+            var maxval = Number(x.max);
+            set_element_value(x, maxval);
+            val = maxval; 
+        }
+        return val;
     } else if (x.type == "radio" && x.checked) {
         return x.value;
     } else if (x.type == "checkbox") {

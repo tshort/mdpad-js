@@ -1,6 +1,6 @@
 {
   "name": "mdpad-js",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "One-file web apps in Markdown",
   "main": "dist/mdpad.min.js",
   "scripts": {

@@ -129,7 +129,7 @@ function update_element(el) {
 
 function set_element_value(el, value) {
     if (el.type == "checkbox") {
-        el.checked = value;
+        el.checked = value == "true";
     } else if (el.type == "radio") {
         document.querySelectorAll("[mdpad=" + el.getAttribute("mdpad") + "]").forEach((el) => {
             el.checked = el.value == value;

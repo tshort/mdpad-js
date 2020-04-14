@@ -129,7 +129,7 @@ function update_element(el) {
 
 function set_element_value(el, value) {
     if (el.type == "checkbox") {
-        el.checked = value == "true";
+        el.checked = bool(value);
     } else if (el.type == "radio") {
         document.querySelectorAll("[mdpad=" + el.getAttribute("mdpad") + "]").forEach((el) => {
             el.checked = el.value == value;
@@ -137,6 +137,11 @@ function set_element_value(el, value) {
     } else {
         el.value = value;
     }
+}
+
+function bool(x) {
+    if (x == "false") return false;
+    return Boolean(x);
 }
 
 function element_value(x) {

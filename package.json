@@ -1,6 +1,6 @@
 {
   "name": "mdpad-js",
-  "version": "0.3.5",
+  "version": "1.0.0",
   "description": "One-file web apps in Markdown",
   "main": "dist/mdpad.min.js",
   "scripts": {
@@ -11,6 +11,6 @@
   "homepage": "https://mdpad.netlify.com",
   "repository": "github:tshort/mdpad-js",
   "devDependencies": {
-    "uglify-es": "github:mishoo/UglifyJS2#harmony"
+    "uglify-js": "^3.17.4"
   }
 }

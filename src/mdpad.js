@@ -28,8 +28,13 @@
 //   * `mdpad.api.disable_url()` -- disable this feature.
 //   * `mdpad.api.enable_replace_url()` -- don't keep history of changes.
 //   * `mdpad.api.disable_replace_url()` -- keep history of changes. (default)
+//   * `mdpad.api.update_defaults(x)` -- update variable defaults for `mdpad` based on `x`.
+//   * `mdpad.api.update_forms()` -- update all forms based on defaults
 //
 // `mdpad` also houses the variables created from forms with `mdpad`-labeled inputs.
+//  Defaults for variables are taken from initial values of inputs, but this
+//  can be changed with `mdpad.api.update_defaults(x)`.
+
 
 mdpad = function() {
 
@@ -61,18 +66,25 @@ function ready(fn) {
 }
 
 // when the DOM loads, register document events that check for changes to form elements
-ready(function() {
-    Promise.resolve().then(init).then(update_forms).then(calculate).then(setup_listeners);
+ready(async function() {
+    await init();
+    await update_forms();
+    await calculate();
+    await setup_listeners();
 })
 
-function init() {
-    if ("mdpad_init" in window)
-        mdpad_init();
-    calculate_forms();
-    variable_defaults = Object.assign({}, mdpad);
+function update_defaults(x) {
+    variable_defaults = Object.assign({}, x);    
 }
 
-function update_forms() {
+async function init() {
+    if ("mdpad_init" in window)
+        await mdpad_init();
+    await calculate_forms();
+    update_defaults(mdpad);
+}
+
+async function update_forms() {
     if (use_url) {
         var url = new URL(window.location);
         var params = new URLSearchParams(url.search); 
@@ -91,7 +103,7 @@ function update_forms() {
     }
 }
 
-function setup_listeners() {
+async function setup_listeners() {
     if (!("mdpad_update" in window)) return;
     document.addEventListener("keyup", function (event) {
         if (event.target.matches("input, textarea, datalist, button") &&
@@ -172,7 +184,7 @@ function element_value(x) {
     return undefined
 }
 
-function read_form(x, i, a) {
+async function read_form(x, i, a) {
     // Send commands to javascript to turn form elements into javascript global variables.
     var name = x.getAttribute("mdpad");
     var val = element_value(x);
@@ -180,23 +192,26 @@ function read_form(x, i, a) {
         mdpad[name] = val; 
 }
 
-function calculate_forms() {  // update data from each form element
+async function calculate_forms() {  // update data from each form element
     document.querySelectorAll("input, select, textarea, datalist").forEach(read_form);
 }
 
-function calculate() {  // page calculation
-    calculate_forms();
+async function calculate() {  // page calculation
+    await calculate_forms();
     if ("mdpad_update" in window)
-        mdpad_update();
+        await mdpad_update();
 }
 
 return {
     api: {
         calculate:calculate,
+        set_element_value:set_element_value,
         enable_url:enable_url,
         disable_url:disable_url,
         enable_replace_url:enable_replace_url,
         disable_replace_url:disable_replace_url,
+        update_defaults:update_defaults,
+        update_forms:update_forms,
     },
 }
 
